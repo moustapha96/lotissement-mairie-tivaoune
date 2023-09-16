@@ -1,0 +1,188 @@
+{% extends 'client/include/main.html.twig' %}
+
+
+{#{% titre de l'activite %}#}
+{% block title_job %}
+	<h1 class="card-title">
+		{{ titre ?? 'Détail Demande' }}
+	</h1>
+{% endblock %}
+
+{# {% operation possible %}#}
+{% block option %}
+	{% for message in app.flashes('success') %}
+
+		<div class="flash-notice alert alert-success">
+			{{ message }}
+		</div>
+
+	{% endfor %}
+	<a href=" {{ path('client_demande_app_new') }}" class="m-1 btn btn-info float-right btn-sm" role="button">
+		<i class="m-1 fa fa-plus" aria-hidden="true"></i>Ajouter</a>
+
+	<a href="{{ path('client_demande_app_index') }}" class="m-1 btn btn-info float-right btn-sm">
+
+		<i class="fa fa-list" aria-hidden="true"></i>Liste
+	</a>
+
+	<a href="{{ path('client_demande_app_edit', {'id': demande.id}) }}" class="m-1 btn btn-info float-right btn-sm">
+		<i class="fas fa-edit    "></i>
+		edit</a>
+
+
+{% endblock %}
+
+{# {% les donnees affichees %}#}
+{% block data %}
+
+
+	<div class="row">
+		<div class="col-12">
+			<div class="card card-margin">
+				<div class="card-body">
+					<div class="row search-body">
+						<div class="col-lg-12">
+							<div class="search-result">
+
+								<div class="result-body">
+									<div class="table-responsive">
+
+										<div class="d-flex justify-content-between">
+											<div class="p-2">
+												<table class="table widget-26" id="sampleTable">
+													<tbody>
+
+														<tr>
+															<th>Email</th>
+															<td>{{ demande.demandeur.email }}</td>
+
+														</tr>
+														<tr>
+															<th>Nin</th>
+															<td>{{ demande.demandeur.nin }}</td>
+
+														</tr>
+
+
+														<tr>
+															<th>Nom Complet
+															</th>
+															<td>{{ demande.demandeur.civilite ~' '~ demande.demandeur.prenom  ~' '~ demande.demandeur.nom}}</td>
+
+														</tr>
+
+														<tr>
+															<th>Adresse</th>
+															<td>{{ demande.demandeur.adresse }}</td>
+
+														</tr>
+														<tr>
+															<th>Téléphone</th>
+															<td>{{ demande.demandeur.telephone }}</td>
+
+														</tr>
+
+														<tr>
+															<th>Situation Matrimoniale</th>
+															<td>{{ demande.demandeur.situationMatrimoniale }}</td>
+
+														</tr>
+
+														<tr>
+															<th>Date et lieu de Naissance</th>
+															<td>
+																Né le
+																{{ demande.demandeur.dateNaissance ? demande.demandeur.dateNaissance|date('Y-m-d') : '' }}
+																à
+																{{ demande.demandeur.lieuNaissance }}
+
+															</td>
+
+
+														</tr>
+
+
+														<tr>
+															<th>Adresse Résidentielle</th>
+															<td>{{ demande.demandeur.adresseResidentielle }}</td>
+
+														</tr>
+
+														<tr>
+															<th>Nationalite</th>
+															<td>{{ demande.demandeur.nationalite }}</td>
+
+														</tr>
+													</tbody>
+												</table>
+											</div>
+
+											<div class="p-2">
+												<table class="table">
+													<tbody>
+
+														<tr>
+															<th>N°Demande
+															</th>
+															<td>{{ demande.numero }}</td>
+														</tr>
+														<tr>
+															<th>Date Demande</th>
+															<td>{{ demande.dateDemande ? demande.dateDemande|date('H:i d-m-Y') : '' }}</td>
+
+														</tr>
+														<tr>
+															<th>Demande Adressé au Maire</th>
+															<td>
+
+																{% if demande.demandeAdresseMaire %}
+
+
+																	<p>
+																		<a href="{{ asset('uploads/' ~ demande.demandeAdresseMaire) }}" target="_blank">demande
+
+																		</a>
+																	</p>
+																{% else %}
+																	No CNI
+																{% endif %}
+
+															</td>
+														</tr>
+														<tr>
+															<th>Cni</th>
+															<td>
+																{% if demande.cni %}
+
+
+																	<p>
+																		<a href="{{ asset('uploads/' ~ demande.cni) }}" target="_blank">cni
+
+																		</a>
+																	</p>
+																{% else %}
+																	No CNI
+																{% endif %}
+
+
+															</td>
+														</tr>
+													</tbody>
+												</table>
+											</div>
+
+
+										</div>
+
+
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}

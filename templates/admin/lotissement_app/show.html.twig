@@ -1,0 +1,122 @@
+{% extends 'admin/include/main.html.twig' %}
+
+{#{% titre de l'activite %}#}
+{% block title_job %}
+	<h1 class="card-title">
+		{{  'Détail Lotissement' }}
+	</h1>
+{% endblock %}
+
+{# {% operation possible %}#}
+{% block option %}
+	{% for message in app.flashes('success') %}
+
+		<div class="flash-notice alert alert-success">
+			{{ message }}
+		</div>
+
+	{% endfor %}
+
+	<a href=" {{ path('app_lotissement_app_index') }}" class="m-1 btn btn-info float-right btn-sm" role="button">
+
+
+		<i class="m-1 fa fa-list" aria-hidden="true"></i>Liste</a>
+
+	<a href="{{ path('app_lotissement_app_edit', {'id': lotissement.id}) }}" class="m-1 btn btn-info float-right btn-sm">
+		<i class="fas fa-edit    "></i>Editer
+	</a>
+
+
+{% endblock %}
+
+{# {% les donnees affichees %}#}
+{% block data %}
+
+	<div class="row">
+		<div class="col-12">
+			<div class="card card-margin">
+				<div class="card-body">
+					<div class="row search-body">
+						<div class="col-lg-12">
+							<div class="search-result">
+
+								<div class="result-body">
+									<div class="table-responsive">
+
+										<table class="table widget-26" id="sampleTable">
+											<tbody>
+												<tr>
+													<th>Numero</th>
+													<td>{{ lotissement.numero }}</td>
+												</tr>
+												<tr>
+													<th>Denomination</th>
+													<td>{{ lotissement.denomination }}</td>
+												</tr>
+												<tr>
+													<th>Localité</th>
+													<td>
+														{% if lotissement.localite.denomination %}
+															<a href="{{ path('app_localite_app_show', {'id': lotissement.localite.id}) }}">{{ lotissement.localite.denomination }}</a>
+														{% else %}
+															NA
+														{% endif %}
+
+													</td>
+
+												</tr>
+
+												<tr>
+													<th>Adresse</th>
+													<td>{{ lotissement.adresse }}</td>
+												</tr>
+
+												<tr>
+													<th>Parcelles</th>
+													{% for parcelle in lotissement.parcelles %}
+
+
+														<td>
+															<a href="{{ path('app_parcelle_app_show', {'id': parcelle.id}) }}">N°{{ parcelle.numero }}</a>
+
+														</td>
+
+
+													{% endfor %}
+
+												</tr>
+
+												<tr>
+													<th>Plans</th>
+
+
+													{% for plan in lotissement.plans %}
+
+
+														<td>
+															<a href="{{ path('app_plan_app_show', {'id': plan.id}) }}">{{ plan.type }}</a>
+
+														</td>
+
+
+													{% endfor %}
+
+
+												</tr>
+
+
+											</tbody>
+										</table>
+
+
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}

@@ -1,0 +1,101 @@
+{% extends 'admin/include/main.html.twig' %}
+
+{#{% titre de l'activite %}#}
+{% block title_job %}
+	<h1 class="card-title">
+		{{  'Parcelles ' ~ lotissement.denomination }}
+	</h1>
+{% endblock %}
+
+{# {% operation possible %}#}
+{% block option %}
+	{% for message in app.flashes('success') %}
+
+		<div class="flash-notice alert alert-success">
+			{{ message }}
+		</div>
+
+	{% endfor %}
+
+	<a href=" {{ path('app_parcelle_app_new') }}" class="m-1 btn btn-info float-right btn-sm" role="button">
+
+
+		<i class="m-1 fa fa-plus" aria-hidden="true"></i>Ajouter</a>
+
+
+{% endblock %}
+
+{# {% les donnees affichees %}#}
+{% block data %}
+
+	<div class="row">
+		<div class="col-12">
+			<div class="card card-margin">
+				<div class="card-body">
+					<div class="row search-body">
+						<div class="col-lg-12">
+							<div class="search-result">
+
+								<div class="result-body">
+									<div class="table-responsive">
+										<table class="table widget-26" id="sampleTable">
+											<thead>
+												<tr>
+
+													<th>Numero</th>
+
+													<th>Largeur</th>
+													<th>Longueur</th>
+													<th>Superficie</th>
+
+
+													<th>actions</th>
+												</tr>
+											</thead>
+											<tbody>
+												{% for parcelle in parcelles %}
+													<tr>
+
+														<td>{{ parcelle.numero }}</td>
+
+														<td>{{ parcelle.dimension.largeur }}
+															metres</td>
+														<td>{{ parcelle.dimension.longueur }}
+															metres
+														</td>
+														<td>{{ parcelle.dimension.superficie }}
+															m2
+														</td>
+
+
+														<td>
+															<a href="{{ path('app_parcelle_app_show', {'id': parcelle.id}) }}" class="btn btn-outline-dark ">
+																<i class="fa fa-eye" aria-hidden="true"></i>
+															</a>
+
+															<a href="{{ path('app_parcelle_app_edit', {'id': parcelle.id}) }}" class=" btn btn-outline-dark ">
+																<i class="fas fa-edit    "></i>
+															</a>
+
+														</td>
+													</tr>
+												{% else %}
+													<tr>
+														<td colspan="3">no records found</td>
+													</tr>
+												{% endfor %}
+											</tbody>
+										</table>
+
+
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}

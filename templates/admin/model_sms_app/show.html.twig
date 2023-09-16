@@ -1,0 +1,71 @@
+{% extends 'admin/include/main.html.twig' %}
+
+{#{% titre de l'activite %}#}
+{% block title_job %}
+	<h1 class="card-title">
+		{{  'Nouveau Model SMS' }}
+	</h1>
+{% endblock %}
+
+{# {% operation possible %}#}
+{% block option %}
+
+	<a href=" {{ path('app_model_sms_app_new') }}" class="m-1 btn btn-info float-right btn-sm" role="button">
+
+
+		<i class="m-1 fa fa-plus" aria-hidden="true"></i>Ajouter</a>
+
+
+	<a href=" {{ path('app_model_sms_app_index') }}" class="m-1 btn btn-info float-right btn-sm" role="button">
+
+
+		<i class="m-1 fa fa-list" aria-hidden="true"></i>Liste</a>
+
+
+{% endblock %}
+
+{# {% les donnees affichees %}#}
+{% block data %}
+
+	<div class="row">
+		<div class="col-12">
+			<div class="card card-margin">
+				<div class="card-body">
+					<div class="row search-body">
+						<div class="col-lg-12">
+							<div class="search-result">
+
+								<div class="result-body">
+									<div class="table-responsive">
+										<table class="table">
+											<tbody>
+												<tr>
+													<th>Id</th>
+													<td>{{ model_sm.id }}</td>
+												</tr>
+												<tr>
+													<th>Code</th>
+													<td>{{ model_sm.code }}</td>
+												</tr>
+												<tr>
+													<th>Message</th>
+													<td>{{ model_sm.message }}</td>
+												</tr>
+												<tr>
+													<th>Parametre</th>
+													<td>{{ model_sm.parametre ? model_sm.parametre|json_encode : '' }}</td>
+												</tr>
+											</tbody>
+										</table>
+
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}

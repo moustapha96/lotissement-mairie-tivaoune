@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta charset="UTF-8">
+
+
+		<title>
+			{% block title %}Welcome!
+			{% endblock %}
+		</title>
+		<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+		<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
+
+
+		<style>
+			body {
+				font-family: Arial, sans-serif;
+				margin: 0;
+				padding: 0;
+			}
+			table {
+				width: 100%;
+				border-collapse: collapse;
+			}
+			th,
+			td {
+				border: 1px solid black;
+				padding: 8px;
+				text-align: left;
+			}
+			th {
+				background-color: #f2f2f2;
+			}
+			.container {
+				max-width: 800px;
+				margin: 0 auto;
+				padding: 20px;
+				text-align: center;
+			}
+			.user-info {
+				display: grid;
+				grid-template-columns: 1fr 2fr;
+				row-gap: 10px;
+				margin-top: 20px;
+			}
+			.user-info img {
+				border-radius: 50%;
+				max-width: 150px;
+				margin: 0 auto;
+				display: block;
+			}
+			th {
+				background-color: #f2f2f2;
+				text-align: left;
+			}
+			td {
+				padding: 8px;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="row">
+
+			<img
+			src="{{ asset('images/men_bar.png') }}" alt="Image">
+		{# <img src="{{ asset('/avatars/' ~ user.avatar) }}" alt="Image"> #}
+
+
+		</div>
+
+		<div class="container">
+			<h1>Rapport D'activité
+			</h1>
+			<div class="user-info">
+				<div>
+
+					<img src="{{ asset('/avatars/' ~ rapport.user.avatar) }}" alt="Image">
+
+
+				</div>
+				<div>
+					<table>
+						<tr>
+							<th>Matricule</th>
+							<td>{{ rapport.user.matricule }}</td>
+						</tr>
+						<tr>
+							<th>Email</th>
+							<td>{{ rapport.user.email }}</td>
+						</tr>
+						<tr>
+							<th>Nom Complet</th>
+							<td>{{ rapport.user.firstName ~ ' ' ~  rapport.user.lastName}}</td>
+
+						</tr>
+
+						<tr>
+							<th>Téléphone</th>
+							<td>{{ rapport.user.phone }}</td>
+						</tr>
+
+						<tr>
+							<th>Collège</th>
+							<td>{{ rapport.college.nom }}</td>
+
+						</tr>
+
+						<tr>
+							<th>Activité</th>
+							<td>{{ rapport.activite }}
+
+								<br>
+
+								{% if rapport.activiteFichier %}
+
+									<a href="{{ asset('uploads/' ~ rapport.activiteFichier) }}">Fichier
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																												                                                    d'activité</a>
+
+								{% endif %}
+
+							</td>
+
+
+						</tr>
+						<tr>
+							<th>Description</th>
+							<td>{{ rapport.description }}
+
+								<br>
+								{% if rapport.descriptionFichier %}
+
+									<a href="{{ asset('uploads/' ~ rapport.descriptionFichier) }}">Fichier de
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																                                                    description</a>
+								{% endif %}
+
+							</td>
+
+
+						</tr>
+						<tr>
+							<th>Résultat</th>
+							<td>{{ rapport.resultat }}
+								<br>
+
+								{% if rapport.resultatFichier %}
+
+									<a href="{{ asset('uploads/' ~ rapport.resultatFichier) }}">Fichier de
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																				                                                    résultat</a>
+
+								{% endif %}
+
+
+							</td>
+						</tr>
+						<tr>
+							<th>Date Création</th>
+							<td>
+								{{ rapport.createdAt|date('Y-m-d H:i:s') }}
+							</td>
+						</tr>
+					</td>
+				</tr>
+
+
+			</table>
+
+
+		</div>
+	</body>
+</html></div></div></body></html>

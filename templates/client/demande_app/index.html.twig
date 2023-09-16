@@ -1,0 +1,142 @@
+{% extends 'client/include/main.html.twig' %}
+
+{% block title %}
+	{{'Demandeur' }}
+{% endblock %}
+
+
+{% block title_job %}
+	<h1 class="card-title">
+		{{ 'Liste de vos Demandes' }}
+	</h1>
+{% endblock %}
+
+
+{% block option %}
+
+
+	<a href="{{ path('client_demande_demande_app_new') }}" class="m-1 btn btn-info float-right btn-sm" role="button">
+		<i class="m-1 fa fa-plus" aria-hidden="true"></i>
+		Nouveau Demandeur</a>
+
+	<a href="{{ path('app_demande_app_new') }}" class="m-1 btn btn-info float-right btn-sm" role="button">
+		<i class="m-1 fa fa-plus" aria-hidden="true"></i>
+		Ajouter</a>
+
+{% endblock %}
+
+
+{% block data %}
+	<div class="row">
+		<div class="col-12">
+			<div class="card card-margin">
+				<div class="card-body">
+					<div class="row search-body">
+						<div class="col-lg-12">
+							<div class="search-result">
+								<div class="result-body">
+									<div class="table-responsive">
+										<table class="table" id="sampleTable">
+											<thead>
+												<tr>
+													<th>Lotissement</th>
+
+
+													<th>Numero</th>
+													<th>Date</th>
+													<th>Demande</th>
+													<th>Cni</th>
+													<th>Etat</th>
+													<th>actions</th>
+												</tr>
+											</thead>
+											<tbody>
+												{% if demandes|length >0 %}
+
+													{% for demande in demandes %}
+
+														<tr>
+															<td>
+																<a href="{{ path('client_lotissement_app_show', {'id': demande.lotissement.id}) }}" class="btn btn-link ">
+
+
+																	{{demande.lotissement.denomination}}
+
+																</a>
+
+
+															</td>
+
+															<td>{{ demande.numero }}</td>
+															<td>{{ demande.dateDemande ? demande.dateDemande|date('Y-m-d H:i:s') : '' }}</td>
+															<td>
+																{% if demande.demandeAdresseMaire %}
+																	<p>
+																		<a href="{{ asset('uploads/' ~ demande.demandeAdresseMaire) }}" target="_blank">
+																			demande
+																		</a>
+																	</p>
+																{% else %}
+																	No Document
+																{% endif %}
+															</td>
+															<td>
+																{% if demande.cni %}
+																	<p>
+																		<a href="{{ asset('uploads/' ~ demande.cni) }}" target="_blank">
+																			cni
+																		</a>
+																	</p>
+																{% else %}
+																	No CNI
+																{% endif %}
+															</td>
+															<td>
+																{{ demande.statut.denomination }}
+
+															</td>
+															<td>
+																<a href="{{ path('client_demande_app_show', {'id': demande.id}) }}" class="btn btn-outline-dark " type="button">
+																	<i class="fa fa-eye" aria-hidden="true"></i>
+																</a>
+
+
+																<a href="{{ path('client_demande_app_edit', {'id': demande.id}) }}" class="btn btn-outline-dark ">
+																	<i class="fas fa-edit    "></i>
+																</a>
+
+															</td>
+
+
+														</tr>
+
+
+													{% endfor %}
+
+
+												{% else %}
+													<tr>
+														<td colspan="6">no records found</td>
+													</tr>
+
+												{% endif %}
+
+
+											</tbody>
+										</tbody>
+									</table>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>{% endblock %}{% block scripts %}
+{{ parent() }}
+
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>{% endblock %}

@@ -1,0 +1,92 @@
+{% extends 'admin/include/main.html.twig' %}
+
+{#{% titre de l'activite %}#}
+{% block title_job %}
+	<h1 class="card-title">
+		{{  'Détail Plan' }}
+	</h1>
+{% endblock %}
+
+{# {% operation possible %}#}
+{% block option %}
+	{% for message in app.flashes('success') %}
+
+		<div class="flash-notice alert alert-success">
+			{{ message }}
+		</div>
+
+	{% endfor %}
+
+	<a href=" {{ path('app_plan_app_new') }}" class="m-1 btn btn-info float-right btn-sm" role="button">
+
+
+		<i class="m-1 fa fa-plus" aria-hidden="true"></i>Ajouter</a>
+
+	<a href="{{ path('app_plan_app_index') }}" class="m-1 btn btn-info float-right btn-sm">
+		<i class="fa fa-list" aria-hidden="true"></i>Liste
+	</a>
+
+
+	<a href="{{ path('app_plan_app_edit', {'id': plan.id}) }}" class="m-1 btn btn-info float-right btn-sm">
+		<i class="fas fa-edit    "></i>Editer
+	</a>
+
+
+{% endblock %}
+
+{# {% les donnees affichees %}#}
+{% block data %}
+
+	<div class="row">
+		<div class="col-12">
+			<div class="card card-margin">
+				<div class="card-body">
+					<div class="row search-body">
+						<div class="col-lg-12">
+							<div class="search-result">
+
+								<div class="result-body">
+									<div class="table-responsive">
+										<table class="table widget-26" id="sampleTable">
+											<tbody>
+
+												<tr>
+													<th>Type</th>
+													<td>{{ plan.type }}</td>
+												</tr>
+												<tr>
+													<th>Statut</th>
+													<td>{{ plan.statut ? 'Activé' : 'Desactivé' }}</td>
+												</tr>
+												<tr>
+													<th>Fichier</th>
+													<td>
+														{% for fiche in plan.fichier %}
+
+															<a href="{{ asset('uploads/plans/' ~ fiche) }}" target="_blank">fiche
+
+															</a>
+
+														{% endfor %}
+
+													</td>
+												</tr>
+												<tr>
+													<th>Description</th>
+													<td>{{ plan.description }}</td>
+												</tr>
+											</tbody>
+										</table>
+
+
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}

@@ -1,0 +1,181 @@
+{% extends 'admin/include/main.html.twig' %}
+
+
+{#{% titre de l'activite %}#}
+{% block title_job %}
+	<h1 class="card-title">
+		{{  'Liste des demandeurs' }}
+	</h1>
+{% endblock %}
+
+{# {% operation possible %}#}
+{% block option %}
+
+	<a href=" {{ path('app_demandeur_app_new') }}" class="m-1 btn btn-info float-right btn-sm" role="button">
+
+		<i class="m-1 fa fa-plus" aria-hidden="true"></i>Ajouter</a>
+{% endblock %}
+
+{# {% les donnees affichees %}#}
+{% block data %}
+
+
+	<div class="row">
+		<div class="col-12">
+			<div class="card card-margin">
+				<div class="card-body">
+					<div class="row search-body">
+						<div class="col-lg-12">
+							<div class="search-result">
+
+								<div class="result-body">
+									<div class="table-responsive">
+										<table class="table widget-26" id="sampleTable">
+											<thead>
+												<tr>
+
+													<th>Nom Complet</th>
+
+													<th>Adresse</th>
+													<th>Telephone</th>
+													<th>Naissance</th>
+
+													<th>Email</th>
+													<th>Nin</th>
+													<th>Demandes</th>
+													<th>Compte</th>
+
+
+													<th>actions</th>
+												</tr>
+											</thead>
+											<tbody>
+												{% for demandeur in demandeurs %}
+													<tr>
+
+														<td>
+															{{ demandeur.civilite }}
+															{{ demandeur.prenom ~' '~  demandeur.nom}}</td>
+
+
+														<td>{{ demandeur.adresse }}
+
+
+														</td>
+
+														<td>{{ demandeur.telephone }}</td>
+														<td>le
+															{{ demandeur.dateNaissance ? demandeur.dateNaissance|date('Y-m-d') : '' }}
+															<br>
+															à
+															{{ demandeur.lieuNaissance }}</td>
+
+
+														<td>{{ demandeur.email }}</td>
+														<td>{{ demandeur.nin }}</td>
+														<td>
+															{% if demandeur.demandes|length > 0 %}
+
+																<a href="{{ path('app_demandeur_demande_app_index', {'id': demandeur.id}) }}" class="btn  btn-link " type="button">
+
+																	{{ demandeur.demandes | length }}
+
+																</a>
+
+															{% else %}
+																{{ demandeur.demandes | length }}
+
+															{% endif %}
+
+														</td>
+														<td>
+
+															<button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modal-{{ demandeur.id }}">
+																{{ demandeur.statut.denomination }}
+
+															</button>
+															<div class="modal fade" id="modal-{{ demandeur.id }}" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+
+																<div class="modal-dialog" role="document">
+																	<div class="modal-content">
+																		<div class="modal-header">
+																			<h5 class="modal-title">Statut demandeur</h5>
+
+
+																			<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+																				<span aria-hidden="true">&times;</span>
+																			</button>
+																		</div>
+																		<form method="POST" action="{{ path('app_demandeur_statut_app_update', {'id': demandeur.id} ) }}">
+																			<div class="modal-body">
+																				<select class="form-control" name="statut" id="statut">
+																					{% for stat in statuts %}
+																						{% set selected = '' %}
+																						{% if stat.denomination == demandeur.statut.denomination %}
+																							{% set selected = 'selected' %}
+																						{% endif %}
+
+
+																						<option value="{{ stat.id }}" {{ selected }}>{{ stat.denomination }}</option>
+																					{% endfor %}
+																				</select>
+																			</div>
+																			<div class="modal-footer">
+																				<button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+																				<button type="submit" class="btn btn-success">Enregistrer</button>
+																			</div>
+																		</form>
+
+
+																	</div>
+																</div>
+															</div>
+
+														</td>
+														<td>
+															<a href="{{ path('app_demandeur_app_show', {'id': demandeur.id}) }}" class="btn btn-outline-dark " type="button">
+
+																<i class="fa fa-eye" aria-hidden="true"></i>
+															</a>
+
+															<a href="{{ path('app_demandeur_app_edit', {'id': demandeur.id}) }}" class="btn btn-outline-dark " type="button">
+
+
+																<i class="fa fa-edit" aria-hidden="true"></i>
+															</a>
+
+
+														</td>
+													</tr>
+												{% else %}
+													<tr>
+														<td colspan="14">no records found</td>
+													</tr>
+												{% endfor %}
+											</tbody>
+										</table>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}
+
+
+{% block scripts %}
+	<script>
+		const select = document.getElementById('statut');
+select.style.color = 'red';
+	</script>
+	{{ parent() }}
+
+
+	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+{% endblock %}

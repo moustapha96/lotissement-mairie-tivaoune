@@ -1,0 +1,71 @@
+{% extends 'admin/include/main.html.twig' %}
+
+{#{% titre de l'activite %}#}
+{% block title_job %}
+	<h1 class="card-title">
+		{{  'Edit Lotissement' }}
+	</h1>
+{% endblock %}
+
+{# {% operation possible %}#}
+{% block option %}
+	{% for message in app.flashes('success') %}
+
+		<div class="flash-notice alert alert-success">
+			{{ message }}
+		</div>
+
+	{% endfor %}
+
+	<a href=" {{ path('app_pays_app_new') }}" class="m-1 btn btn-info float-right btn-sm" role="button">
+
+		<i class="m-1 fa fa-plus" aria-hidden="true"></i>Ajouter</a>
+	<a href="{{ path('app_pays_app_index') }}">back to list</a>
+
+	<a href="{{ path('app_pays_app_edit', {'id': pay.id}) }}">edit</a>
+
+
+{% endblock %}
+
+{# {% les donnees affichees %}#}
+{% block data %}
+
+	<div class="row">
+		<div class="col-12">
+			<div class="card card-margin">
+				<div class="card-body">
+					<div class="row search-body">
+						<div class="col-lg-12">
+							<div class="search-result">
+
+								<div class="result-body">
+									<div class="table-responsive">
+										<table class="table widget-26" id="sampleTable">idget-26" id="sampleTable">idget-26" id="sampleTable">
+											<tbody>
+												<tr>
+													<th>Id</th>
+													<td>{{ pay.id }}</td>
+												</tr>
+												<tr>
+													<th>NomPays</th>
+													<td>{{ pay.nomPays }}</td>
+												</tr>
+												<tr>
+													<th>Indicatif</th>
+													<td>{{ pay.indicatif }}</td>
+												</tr>
+											</tbody>
+										</table>
+
+
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}

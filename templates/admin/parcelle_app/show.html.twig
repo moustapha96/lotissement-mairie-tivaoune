@@ -1,0 +1,94 @@
+{% extends 'admin/include/main.html.twig' %}
+
+{#{% titre de l'activite %}#}
+{% block title_job %}
+	<h1 class="card-title">
+		{{  'Détail Parcelle' }}
+	</h1>
+{% endblock %}
+
+{# {% operation possible %}#}
+{% block option %}
+	{% for message in app.flashes('success') %}
+
+		<div class="flash-notice alert alert-success">
+			{{ message }}
+		</div>
+
+	{% endfor %}
+
+	<a href=" {{ path('app_parcelle_app_new') }}" class="m-1 btn btn-info float-right btn-sm" role="button">
+
+
+		<i class="m-1 fa fa-plus" aria-hidden="true"></i>Ajouter</a>
+	<a href="{{ path('app_parcelle_app_index') }}" class="m-1 btn btn-info float-right btn-sm">
+		<i class="fa fa-list" aria-hidden="true"></i>Liste
+	</a>
+
+	<a href="{{ path('app_parcelle_app_edit', {'id': parcelle.id}) }}" class="m-1 btn btn-info float-right btn-sm">
+		<i class="fas fa-edit    "></i>Editer
+	</a>
+
+
+{% endblock %}
+
+{# {% les donnees affichees %}#}
+{% block data %}
+
+	<div class="row">
+		<div class="col-12">
+			<div class="card card-margin">
+				<div class="card-body">
+					<div class="row search-body">
+						<div class="col-lg-12">
+							<div class="search-result">
+
+								<div class="result-body">
+									<div class="table-responsive">
+										<table class="table widget-26" id="sampleTable">
+											<tbody>
+
+												<tr>
+													<th>Numero</th>
+													<td>{{ parcelle.numero }}</td>
+												</tr>
+												<tr>
+													<th>Lotissement</th>
+													<td>{{ parcelle.lotissement.denomination }}</td>
+												</tr>
+
+												<tr>
+													<th>Largeur</th>
+													<td>{{ parcelle.dimension.largeur }}
+														metres
+													</td>
+												</tr>
+												<tr>
+													<th>Longueur</th>
+													<td>{{ parcelle.dimension.longueur }}
+														metres</td>
+												</tr>
+
+												<tr>
+													<th>Superficie</th>
+													<td>{{ parcelle.dimension.superficie }}
+														m2
+													</td>
+												</tr>
+
+
+											</tbody>
+										</table>
+
+
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}
